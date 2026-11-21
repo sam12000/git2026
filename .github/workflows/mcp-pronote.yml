@@ -1,0 +1,37 @@
+name: Serveur MCP PRONOTE
+
+on:
+  push:
+    branches: [claude/init-project-setup-KV9P0]
+    paths: [mcp-pronote/**, .github/workflows/mcp-pronote.yml]
+  pull_request:
+    paths: [mcp-pronote/**, .github/workflows/mcp-pronote.yml]
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: mcp-pronote
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mcp-pronote/package-lock.json
+      - run: npm ci
+      - run: npm test
+
+      # Compte public de démonstration d'Index Éducation. Échoue tant que la
+      # connexion par mot de passe ne marche pas avec PRONOTE 2026 (voir README).
+      - name: Connexion au PRONOTE de démonstration
+        continue-on-error: true
+        env:
+          PRONOTE_URL: https://demo.index-education.net/pronote/eleve.html
+          PRONOTE_USERNAME: demonstration
+          PRONOTE_PASSWORD: pronotevs
+          PRONOTE_SESSION_FILE: ${{ runner.temp }}/session.json
+        run: node dist/index.js login

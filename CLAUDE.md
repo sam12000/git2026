@@ -7,6 +7,7 @@ MyLife Planner : assistant d'organisation scolaire (PRONOTE, agendas, devoirs, r
 - `app/` : source unique de l'interface (HTML/CSS/JS sans framework). `app/js/app.js` vient du prototype Artifact ; `app/js/platform.js` isole tout ce qui dépend du format (micro, notifications, PRONOTE, IA).
 - `src/pronote-core.mjs` : connexion PRONOTE via pawnote (pas d'API officielle). Utilisé par `server/` (Node) et embarqué par esbuild dans l'extension et l'APK.
 - `scripts/build.mjs` produit `dist/www` (PWA), `dist/extension` (MV3), `dist/android` (webDir Capacitor) et `dist/mylife-planner.html` (fichier unique).
+- `mcp-pronote/` : serveur MCP local (TypeScript, paquet npm séparé) qui donne à Claude un accès à PRONOTE ; `npm test` dans ce dossier.
 - `android/` : projet Capacitor 8 (généré par `npx cap add android`, icônes personnalisées).
 
 ## Commandes
