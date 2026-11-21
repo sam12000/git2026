@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "MyLife Planner",
+  "short_name": "MyLife",
+  "version": "1.0.0",
+  "description": "Planning scolaire et personnel : PRONOTE, agendas, devoirs, révisions et rappels.",
+  "default_locale": "fr",
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "action": { "default_title": "Ouvrir MyLife Planner", "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png" } },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["notifications"],
+  "host_permissions": ["https://*.index-education.net/*"],
+  "optional_host_permissions": ["https://*/*"]
+}

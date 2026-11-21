@@ -1,0 +1,11 @@
+{
+  "appId": "fr.mylifeplanner.app",
+  "appName": "MyLife Planner",
+  "webDir": "dist/android",
+  "android": { "allowMixedContent": false },
+  "plugins": {
+    "CapacitorHttp": { "enabled": true },
+    "CapacitorCookies": { "enabled": true },
+    "LocalNotifications": { "iconColor": "#2747B8" }
+  }
+}

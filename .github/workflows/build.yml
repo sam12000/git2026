@@ -1,0 +1,54 @@
+name: Construire l'appli
+
+on:
+  push:
+    branches: [claude/init-project-setup-KV9P0]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Tester la connexion PRONOTE (serveur de démonstration)
+        run: node scripts/check-pronote-demo.mjs
+        continue-on-error: true
+
+      - name: Préparer l'extension (zip)
+        run: cd dist/extension && zip -qr ../../mylife-planner-extension.zip .
+
+      - name: Préparer la page web (zip)
+        run: cd dist/www && zip -qr ../../mylife-planner-web.zip .
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Construire l'APK Android
+        run: |
+          npx cap sync android
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+          cp app/build/outputs/apk/debug/app-debug.apk ../mylife-planner.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mylife-planner
+          path: |
+            mylife-planner.apk
+            mylife-planner-extension.zip
+            mylife-planner-web.zip
+            dist/mylife-planner.html
+          retention-days: 30
