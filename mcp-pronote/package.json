@@ -20,7 +20,7 @@
     "@modelcontextprotocol/sdk": "^1.32.2",
     "jpeg-js": "^0.4.4",
     "jsqr": "^1.4.0",
-    "pawnote": "1.6.2",
+    "pawnote": "npm:@blockshub/pawnote-lts@1.6.4",
     "pngjs": "^7.0.0",
     "zod": "^4.6.7"
   },

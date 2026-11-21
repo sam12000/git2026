@@ -12,8 +12,8 @@ import { parseQrInput } from "../dist/qr.js";
 
 test("corrige la page de connexion PRONOTE 2026", () => {
   const html = '<script>try { Start ({h:"123",a:3});} catch (e) {}</script>';
-  assert.equal(fixStartScript(html), '<script>try { Start ({h:"123",a:3})} catch (e) {}</script>');
-  const old = '<script>try { Start ({h:"1"})} catch (e) {}</script>';
+  assert.equal(fixStartScript(html), '<script>try { Start({h:"123",a:3})} catch (e) {}</script>');
+  const old = '<script>try { Start({h:"1"})} catch (e) {}</script>';
   assert.equal(fixStartScript(old), old);
 });
 

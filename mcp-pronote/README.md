@@ -2,7 +2,7 @@
 
 Petit serveur [MCP](https://modelcontextprotocol.io) qui tourne **sur ton ordinateur** et permet à Claude (Claude Code ou Claude Desktop) de lire ton PRONOTE : emploi du temps, devoirs, contrôles, notes, absences et informations de l'établissement.
 
-Il utilise la même bibliothèque que l'appli MyLife Planner, [pawnote](https://www.npmjs.com/package/pawnote) 1.6.2, avec le même correctif pour la page de connexion de PRONOTE 2026. PRONOTE n'a pas d'API officielle : pawnote se connecte comme l'application mobile PRONOTE.
+Il utilise la même bibliothèque que l'appli MyLife Planner : [@blockshub/pawnote-lts](https://www.npmjs.com/package/@blockshub/pawnote-lts) 1.6.4, la copie maintenue de pawnote (l'original n'est plus maintenu), avec le même correctif pour la page de connexion de PRONOTE 2026. PRONOTE n'a pas d'API officielle : pawnote se connecte comme l'application mobile PRONOTE.
 
 ## Ce que Claude peut faire
 
@@ -64,7 +64,7 @@ Mets-les dans les variables d'environnement de la configuration MCP (voir plus b
 
 Pour tester tout de suite : `PRONOTE_URL=… PRONOTE_USERNAME=… PRONOTE_PASSWORD=… node dist/index.js login`.
 
-> **Limite connue.** Avec PRONOTE 2026 (version 2026.2 sur le serveur de démonstration), pawnote 1.6.2 échoue à la connexion par mot de passe (« Unable to resolve the challenge »), même avec les bons identifiants. En attendant une bibliothèque à jour, utilise le QR code. Les comptes qui passent par un ENT (Monlycée, ENT régional…) ne peuvent pas non plus se connecter par mot de passe : QR code obligatoire.
+> **Limites connues.** La connexion par mot de passe fonctionne avec PRONOTE 2026 (testée sur le serveur de démonstration). La reconnexion automatique par jeton y échoue encore : il faut alors se reconnecter. Les comptes qui passent par un ENT (Monlycée, ENT régional…) ne peuvent pas se connecter par mot de passe : QR code obligatoire.
 
 ### Où vont tes identifiants
 
