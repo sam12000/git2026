@@ -24,10 +24,6 @@ jobs:
         run: node scripts/check-pronote-demo.mjs
         continue-on-error: true
 
-      - name: Diagnostic temporaire de la reconnexion par jeton
-        run: node scripts/diag-pronote-token.mjs
-        continue-on-error: true
-
       - name: Préparer l'extension (zip)
         run: cd dist/extension && zip -qr ../../mylife-planner-extension.zip .
 
