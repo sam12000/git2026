@@ -34,7 +34,7 @@ Pour construire l'APK sur ton ordinateur : Android Studio (JDK 21, SDK Android 3
 
 ## PRONOTE
 
-> ⚠️ **PRONOTE n'a pas d'API officielle.** La connexion utilise [pawnote](https://github.com/LiterateInk/Pawnote.js), une bibliothèque libre qui parle à PRONOTE comme le fait l'appli mobile officielle. Elle peut cesser de marcher si Index Éducation change PRONOTE, et certains établissements peuvent bloquer ce type d'accès. Utilise uniquement ton propre compte.
+> ⚠️ **PRONOTE n'a pas d'API officielle.** La connexion utilise pawnote, une bibliothèque libre (dans sa copie maintenue [@blockshub/pawnote-lts](https://www.npmjs.com/package/@blockshub/pawnote-lts), l'original n'étant plus maintenu) qui parle à PRONOTE comme le fait l'appli mobile officielle. Elle peut cesser de marcher si Index Éducation change PRONOTE, et certains établissements peuvent bloquer ce type d'accès. Utilise uniquement ton propre compte.
 
 Trois façons de se connecter (onglet **Sources**) :
 
@@ -42,7 +42,7 @@ Trois façons de se connecter (onglet **Sources**) :
 2. **QR code / ENT** : pour les comptes ENT / ÉduConnect. Dans PRONOTE sur ordinateur, clique sur l'icône QR code, choisis un code à 4 chiffres, puis prends le QR code en photo dans l'appli.
 3. **Copier-coller** : copie la page « Travail à faire » ; marche partout, sans connexion.
 
-Le mot de passe sert une seule fois : l'appli garde ensuite un **jeton** lié à l'appareil, et resynchronise toute seule (au plus une fois par heure à l'ouverture, ou avec « Synchroniser maintenant »).
+Le mot de passe sert une seule fois : l'appli garde ensuite un **jeton** lié à l'appareil, et resynchronise toute seule (au plus une fois par heure à l'ouverture, ou avec « Synchroniser maintenant »). Limite connue : sur le PRONOTE de démonstration (version 2026.2), cette reconnexion par jeton est refusée. Si c'est le cas chez toi, l'appli garde tes données et te demande de te reconnecter.
 
 **Où passe la connexion ?**
 - Extension et APK : **directement** de l'appareil vers PRONOTE.
