@@ -74,7 +74,14 @@ export async function pronoteSync(req, fetcher) {
     const qr = typeof req.qr === 'string' ? JSON.parse(req.qr) : req.qr;
     r = await P.loginQrCode(s, { deviceUUID, pin: String(req.pin || ''), qr });
   } else if (req.mode === 'token') {
-    r = await P.loginToken(s, { url, kind: req.kindNum || kind, username: req.username, token: req.token, deviceUUID, navigatorIdentifier: req.navigatorIdentifier });
+    // Quand l'établissement ignore la casse des mots de passe, pawnote passe aussi
+    // le jeton en minuscules avant de le chiffrer. pawnote-lts a retiré ce passage
+    // pour le mot de passe, pas pour le jeton. Or le jeton est sensible à la casse,
+    // donc on l'empêche d'être modifié.
+    const token = String(req.token || '');
+    const tokenReq = { url, kind: req.kindNum || kind, username: req.username, deviceUUID, navigatorIdentifier: req.navigatorIdentifier };
+    Object.defineProperty(tokenReq, 'token', { get: () => token, set: () => {}, enumerable: true });
+    r = await P.loginToken(s, tokenReq);
   } else {
     r = await P.loginCredentials(s, { url, kind, username: req.username, password: req.password, deviceUUID });
   }
