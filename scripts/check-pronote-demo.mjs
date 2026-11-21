@@ -17,7 +17,11 @@ try {
     const u = 'https://demo.index-education.net/pronote/mobile.eleve.html?fd=1';
     const r = await fetch(u, { redirect: 'manual', headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Mobile Safari/537.36' } });
     const t = await r.text();
-    console.error('Diagnostic', u, '->', r.status, r.headers.get('location') || '', '|', t.replace(/\s+/g, ' ').slice(0, 600));
+    console.error('Diagnostic', u, '->', r.status, 'taille', t.length);
+    console.error('  version :', JSON.stringify((t.match(/.{0,60}PRONOTE \d[^<]{0,40}/g) || []).slice(0, 5)));
+    const i = t.indexOf('Start(');
+    console.error('  Start( :', i, JSON.stringify(t.slice(Math.max(0, i - 200), i + 400)));
+    const j = t.indexOf('catch'); console.error('  catch :', j);
   } catch (d) { console.error('Diagnostic impossible :', d.message); }
   process.exit(1);
 }
