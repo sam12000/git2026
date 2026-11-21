@@ -12,5 +12,12 @@ try {
   console.log(`Reconnexion par jeton : OK (${again.lessons.length} cours)`);
 } catch (e) {
   console.error('Échec :', explainError(e).message, '|', e && e.name, e && e.message);
+  // Diagnostic : que renvoie la page de connexion mobile ?
+  try {
+    const u = 'https://demo.index-education.net/pronote/mobile.eleve.html?fd=1';
+    const r = await fetch(u, { redirect: 'manual', headers: { 'User-Agent': 'Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Mobile Safari/537.36' } });
+    const t = await r.text();
+    console.error('Diagnostic', u, '->', r.status, r.headers.get('location') || '', '|', t.replace(/\s+/g, ' ').slice(0, 600));
+  } catch (d) { console.error('Diagnostic impossible :', d.message); }
   process.exit(1);
 }
