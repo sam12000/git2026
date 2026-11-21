@@ -1,18 +1,22 @@
 // Logique PRONOTE partagée : utilisée par le serveur (Node) ET embarquée dans
 // l'extension et l'APK Android (où l'appli peut joindre PRONOTE directement).
-// S'appuie sur pawnote (https://github.com/LiterateInk/Pawnote.js), une
-// bibliothèque open source non officielle : PRONOTE n'a pas d'API publique.
+// S'appuie sur pawnote, une bibliothèque open source non officielle (PRONOTE n'a
+// pas d'API publique). Le projet d'origine (LiterateInk/Pawnote.js) n'est plus
+// maintenu : on utilise sa copie maintenue @blockshub/pawnote-lts (alias npm
+// « pawnote » dans package.json), qui suit le protocole de connexion PRONOTE 2026.
 import * as P from 'pawnote';
 import { defaultFetcher } from '@literate.ink/utilities';
 
 /**
  * Compatibilité PRONOTE 2026 : la page de connexion mobile appelle désormais
- * « Start ({…});} catch » au lieu de « Start ({…})} catch », ce que pawnote 1.6.2
- * ne sait pas lire (erreur « The requested page does not exist »).
- * On remet la forme attendue avant de passer la page à pawnote.
+ * « Start ({…});} catch » au lieu de « Start({…})} catch ». pawnote cherche
+ * « Start({ » sans espace (et, en 1.6.2, « )}catch »). On remet la forme
+ * attendue avant de passer la page à pawnote.
  */
 export function fixStartScript(html) {
-  return String(html).replace(/(Start\s*\(\s*\{[\s\S]*?\}\s*\))\s*;(\s*\}\s*catch)/, '$1$2');
+  return String(html)
+    .replace(/Start\s*\(\s*\{/, 'Start({')
+    .replace(/(Start\(\{[\s\S]*?\}\s*\))\s*;(\s*\}\s*catch)/, '$1$2');
 }
 export const compatFetcher = (base = defaultFetcher) => async (req) => {
   const res = await base(req);
