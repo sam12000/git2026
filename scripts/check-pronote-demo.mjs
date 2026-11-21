@@ -21,7 +21,7 @@ try {
     console.error('  version :', JSON.stringify((t.match(/.{0,60}PRONOTE \d[^<]{0,40}/g) || []).slice(0, 5)));
     const i = t.indexOf('Start(');
     console.error('  Start( :', i, JSON.stringify(t.slice(Math.max(0, i - 200), i + 400)));
-    const j = t.indexOf('catch'); console.error('  catch :', j);
+    console.error('  page :', JSON.stringify(t.slice(1200)));
   } catch (d) { console.error('Diagnostic impossible :', d.message); }
   process.exit(1);
 }
