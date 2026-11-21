@@ -11,6 +11,6 @@ try {
   const again = await pronoteSync({ ...r.auth, mode: 'token' });
   console.log(`Reconnexion par jeton : OK (${again.lessons.length} cours)`);
 } catch (e) {
-  console.error('Échec :', explainError(e).message);
+  console.error('Échec :', explainError(e).message, '|', e && e.name, e && e.message);
   process.exit(1);
 }

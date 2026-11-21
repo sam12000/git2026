@@ -44,14 +44,17 @@ export async function pronoteSync(req, fetcher) {
   const s = P.createSessionHandle(fetcher);
   const kind = KINDS[req.kind] || P.AccountKind.STUDENT;
   const deviceUUID = String(req.deviceUUID || 'mylife-planner');
+  // L'adresse copiée depuis le navigateur finit souvent par « eleve.html » :
+  // pawnote attend la racine (…/pronote), sinon la page de connexion est introuvable.
+  const url = req.url ? P.cleanURL(String(req.url).trim()) : req.url;
   let r;
   if (req.mode === 'qr') {
     const qr = typeof req.qr === 'string' ? JSON.parse(req.qr) : req.qr;
     r = await P.loginQrCode(s, { deviceUUID, pin: String(req.pin || ''), qr });
   } else if (req.mode === 'token') {
-    r = await P.loginToken(s, { url: req.url, kind: req.kindNum || kind, username: req.username, token: req.token, deviceUUID, navigatorIdentifier: req.navigatorIdentifier });
+    r = await P.loginToken(s, { url, kind: req.kindNum || kind, username: req.username, token: req.token, deviceUUID, navigatorIdentifier: req.navigatorIdentifier });
   } else {
-    r = await P.loginCredentials(s, { url: req.url, kind, username: req.username, password: req.password, deviceUUID });
+    r = await P.loginCredentials(s, { url, kind, username: req.username, password: req.password, deviceUUID });
   }
 
   const from = new Date(); from.setHours(0, 0, 0, 0); from.setDate(from.getDate() - 1);
