@@ -4,7 +4,9 @@
   "private": true,
   "description": "Assistant d'organisation personnelle et scolaire : PRONOTE, agendas, devoirs, révisions et rappels. Page web (PWA), extension et APK Android.",
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "build": "node scripts/build.mjs",
     "start": "node server/index.mjs",
@@ -13,8 +15,9 @@
     "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug"
   },
   "dependencies": {
+    "@literate.ink/utilities": "1.0.0-10641118381.1",
     "express": "^5.1.0",
-    "pawnote": "1.6.2"
+    "pawnote": "npm:@blockshub/pawnote-lts@1.6.4"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^1.12.0",
